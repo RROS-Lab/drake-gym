@@ -17,15 +17,15 @@ from pydrake.all import (
     TrajectorySource,
     Solve,
 )
-from manipulation.manipulation.meshcat_utils import AddMeshcatTriad
-from manipulation.manipulation.scenarios import AddIiwaDifferentialIK
-from manipulation.manipulation.station import LoadScenario, MakeHardwareStation
+from manipulation.meshcat_utils import AddMeshcatTriad
+from manipulation.scenarios import AddIiwaDifferentialIK
+from manipulation.station import LoadScenario, MakeHardwareStation
 
-from .control.cartesian_impedance import CartesianImpedanceController
-from .control.psuedo_inverse import PseudoInverseController
-from .control.pose_traj_source import PoseTrajectorySource
-from .reporters.contact_state import ContactReporter
-from .reporters.eef_state import EEStateMonitor
+from control.cartesian_impedance import CartesianImpedanceController
+from control.psuedo_inverse import PseudoInverseController
+from control.pose_traj_source import PoseTrajectorySource
+from reporters.contact_state import ContactReporter
+from reporters.eef_state import EEStateMonitor
 
 MAIN_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
@@ -393,7 +393,9 @@ def compose_key_frames(num_points, initial_pose, final_pose, time_start, time_en
 def main():
 
     num_key_frames = 100
-    scenario_data = os.path.join(MAIN_DIR, "assets", "environment.scenario.yaml")
+    scenario_data = os.path.join(
+        MAIN_DIR, "sim_map", "assets", "environment.scenario.yaml"
+    )
 
     Initial_Pose = RigidTransform(
         R=RotationMatrix(np.eye(3)), p=np.array([0.594, 0.0, 0.1])
@@ -413,7 +415,7 @@ def main():
     iiwaLeaf = IIWALeaf(
         scenario_filepath=scenario_data,
         controller_type="cart_imp",
-        peg_type="square_peg",
+        peg_type="cross_peg",
         traj=traj,
         sim_timestep=timestep,
     )
