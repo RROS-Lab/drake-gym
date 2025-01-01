@@ -1,0 +1,3 @@
+[submodule "sim_map/manipulation"]
+	path = sim_map/manipulation
+	url = git@github.com:RussTedrake/manipulation.git
